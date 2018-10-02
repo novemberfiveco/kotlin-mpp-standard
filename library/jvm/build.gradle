@@ -1,0 +1,18 @@
+apply plugin: 'kotlin-platform-jvm'
+
+repositories {
+    jcenter()
+    google()
+}
+
+dependencies {
+    expectedBy project(":library:$libraryModuleName-common")
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    testCompile "junit:junit:4.12"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    testCompile "org.jetbrains.kotlin:kotlin-test"
+}
+
+apply from: "${rootProject.rootDir.path}/publish/publishToBintray.gradle"

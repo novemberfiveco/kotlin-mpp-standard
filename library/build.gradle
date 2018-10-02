@@ -1,0 +1,38 @@
+ext {
+    // Repository on bintray where your library will end up
+    bintrayRepo = 'kotlin'
+
+    // Name of your library on bintray
+    bintrayName = 'kotlin-mpp-standard'
+
+    // Organisation on bintray you want to upload to. Leave blank if none
+    bintrayOrganisation = 'your-bintray-organisation'
+
+    // Desired groupId of your library
+    publishedGroupId = 'co.novemberfive.kotlin.sample'
+
+    // Name of your library, maps to the filename of the generated framework file
+    libraryName = 'MyLibrary'
+    // Note: If you change the libraryName, you'll need to update the 'Compile Kotlin/Native Library' build step in the  'ios-app' sample project and add the new framework file to your project.
+
+    // Description of your library
+    libraryDescription = 'A Hello World library writting in Kotlin for both Android & iOS.'
+
+    // Git and website urls
+    siteUrl = 'https://github.com/novemberfiveco/kotlin-mpp-standard'
+    gitUrl = 'https://github.com/novemberfiveco/kotlin-mpp-standard.git'
+
+    // Library version
+    libraryVersion = '0.1.0'
+
+    // List of developers to be mentioned in the pom and podspec files
+    libraryDevelopers = [
+            [name: 'Arne Stockmans', email: 'arne@novemberfive.co'],
+            [name: 'Vincent de Smet', email: 'vincent.desmet@novemberfive.co']
+    ]
+
+    // License information
+    licenseName = 'The MIT License (MIT)'
+    licenseUrl = 'http://opensource.org/licenses/MIT'
+    license = 'MIT'
+}

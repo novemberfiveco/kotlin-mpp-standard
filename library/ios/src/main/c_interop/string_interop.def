@@ -1,0 +1,7 @@
+language = Objective-C
+---
+#import <Foundation/NSString.h>
+
+NSString* NSStringWithData(NSData* nsData, NSStringEncoding encoding) {
+    return [[NSString alloc] initWithData:nsData encoding:encoding];
+}

@@ -1,0 +1,13 @@
+apply plugin: 'kotlin-platform-common'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-common"
+    testCompile "org.jetbrains.kotlin:kotlin-test-annotations-common"
+    testCompile "org.jetbrains.kotlin:kotlin-test-common"
+}
+
+apply from: "${rootProject.rootDir.path}/publish/publishToBintray.gradle"

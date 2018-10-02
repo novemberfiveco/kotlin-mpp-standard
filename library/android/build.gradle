@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-platform-android'
+
+apply plugin: 'org.jetbrains.dokka'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        main.java.srcDirs += '../common/src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        test.java.srcDirs += '../common/src/test/kotlin'
+    }
+}
+
+repositories {
+    jcenter()
+    google()
+}
+
+dependencies {
+    expectedBy project(":library:$libraryModuleName-common")
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+}
+
+dokka {
+    // See https://github.com/Kotlin/dokka for custom configuration
+}
+
+apply from: "${rootProject.rootDir.path}/publish/publishToBintray.gradle"

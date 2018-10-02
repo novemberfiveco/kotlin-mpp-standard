@@ -1,0 +1,7 @@
+ext {
+    artifact = name
+    allLicenses = [license]
+}
+
+apply from: "${rootProject.rootDir.path}/publish/install.gradle"
+apply from: "${rootProject.rootDir.path}/publish/bintray.gradle"

@@ -1,0 +1,74 @@
+apply plugin: 'kotlin'
+apply plugin: 'konan'
+
+def targets = project.hasProperty('simulatorOnly') ? ['ios_x64'] : ['ios_arm32', 'ios_arm64', 'ios_x64']
+
+konanArtifacts {
+    // Some methods in iOS are not (yet) possible to call from Kotlin easily
+    // For example [[NSString alloc] initWithData:nsData encoding:encoding] isn't supported yet
+    // Since we do want to use this method, we can create our own interop methods instead
+    // You can find the sourcecode in src/main/c_interop/string_interop.def
+    interop('string_interop', targets: targets)
+
+    framework(libraryName, targets: targets) {
+        enableMultiplatform true
+
+        commonSourceSet 'main'
+        artifactName libraryName
+
+        enableDebug true
+
+        srcDir 'src/main/kotlin/ios'
+
+        // Add additional source directories for each architecture, in case you want to add
+        // architecture-specific code
+        targets.forEach { targetName ->
+            target(targetName) {
+                srcDir "src/$targetName/kotlin/ios"
+            }
+        }
+
+        // Add our custom string_interop we've defined earlier
+        libraries {
+            artifact 'string_interop'
+        }
+    }
+}
+
+task lipo(type: Exec, dependsOn: compileKonan) {
+
+    def frameworks = files(targets.collect { target ->
+        "$buildDir/konan/bin/$target/${libraryName}.framework/$libraryName"
+    })
+
+    def output = file("$buildDir/konan/bin/ios_universal/${libraryName}.framework/$libraryName")
+
+    inputs.files frameworks
+    outputs.file output
+
+    executable = 'lipo'
+
+    args = frameworks.files
+    args += ['-create', '-output', output]
+}
+
+task archiveFramework(type: Copy, dependsOn: lipo) {
+    from "$buildDir/konan/bin/ios_universal"
+    into "${rootProject.rootDir}/outputs/"
+}
+
+task copyFrameworkToSample(type: Copy, dependsOn: lipo) {
+    from "$buildDir/konan/bin/ios_universal"
+    into "${rootProject.rootDir}/samples/ios-app/Kotlin Sample-iOS/General/"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib"
+    expectedBy project(":library:$libraryModuleName-common")
+}
+
+apply from: "${rootProject.rootDir.path}/publish/createPodspec.gradle"

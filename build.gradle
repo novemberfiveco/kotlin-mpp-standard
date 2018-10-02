@@ -1,0 +1,62 @@
+buildscript {
+    ext {
+        // Kotlin version
+        // https://github.com/JetBrains/kotlin
+        // https://bintray.com/kotlin/kotlin-dev/kotlin
+        kotlin_version = '1.2.70'
+
+        // Kotlin Native version
+        // https://github.com/JetBrains/kotlin-native
+        // https://bintray.com/jetbrains/kotlin-native-dependencies/kotlin-native-gradle-plugin
+        kotlin_native_version = '0.9.2'
+
+        // Dokka version
+        // https://github.com/Kotlin/dokka
+        // https://bintray.com/kotlin/dokka/dokka
+        dokka_version = '0.9.17'
+
+        // Maven repo urls
+        maven_kotlinx = 'https://kotlin.bintray.com/kotlinx'
+        maven_kotlin_eap = 'http://dl.bintray.com/kotlin/kotlin-eap'
+        maven_kotlin_native = 'https://dl.bintray.com/jetbrains/kotlin-native-dependencies'
+    }
+
+    repositories {
+        jcenter()
+        google()
+        maven { url maven_kotlinx }
+        maven { url maven_kotlin_eap }
+        maven { url maven_kotlin_native }
+    }
+
+    dependencies {
+        // Android plugin for Gradle - do not automatically bump without testing!
+        classpath 'com.android.tools.build:gradle:3.1.4'
+
+        // Kotlin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // Kotlin native plugin
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$kotlin_native_version"
+
+        // Dokka
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+
+        // Bintray upload
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven { url maven_kotlinx }
+        maven { url maven_kotlin_eap }
+    }
+
+    if (project.path.startsWith(":library")) {
+        project.group = 'co.novemberfive.kotlin'
+    }
+}

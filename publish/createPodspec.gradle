@@ -1,0 +1,29 @@
+File podspecFile = new File(project.projectDir, "${libraryName}.podspec")
+
+if (podspecFile.exists()) {
+    podspecFile.delete()
+    podspecFile.createNewFile()
+}
+
+String spec = """Pod::Spec.new do |spec|
+  spec.name         = '$libraryName'
+  spec.version      = '$libraryVersion'
+  spec.license      = { :type => "$license", :file => "LICENSE.txt" }
+  spec.homepage     = '$siteUrl'
+  spec.authors      = { 
+"""
+
+spec += libraryDevelopers.collect { dev ->
+    "                       '${dev.name}' => '${dev.email}'"
+}.join(",\n")
+
+spec += """
+  }
+  spec.summary      = "$libraryDescription"
+  spec.source       = { :git => '$gitUrl', :tag => 'master' }
+  spec.platform     = :ios, "9.0"
+  spec.vendored_frameworks    = 'outputs/${libraryName}.framework'
+end
+"""
+
+podspecFile.write(spec)

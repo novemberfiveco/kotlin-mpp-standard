@@ -1,0 +1,28 @@
+# CocoaPods requires the sources of the specs repositories to be set explicitly
+source 'https://github.com/CocoaPods/Specs.git'
+
+# iOS
+abstract_target 'iOS' do
+
+    target 'Kotlin Sample-iOS'
+	platform :ios, '9.0'
+    # Kotlin/Native Pod
+    pod 'MyLibrary' 
+end
+
+
+# Post Install Hooks
+post_install do |installer_representation|
+
+    installer_representation.pods_project.targets.each do |target|
+    
+        target_name = "#{target.name}"
+        puts "Generating target " + target_name
+        
+        # Specific configurations for iOS apps
+        target.build_configurations.each do |config|
+            config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+        end
+                        
+    end
+end
