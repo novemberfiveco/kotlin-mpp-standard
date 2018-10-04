@@ -139,6 +139,8 @@ Currently the following releases are planned:
 
 This project is maintained by [*Arne Stockmans*](https://github.com/Arne517) & [*Vincent de Smet*](https://github.com/vdesmet93).
 
+Additional information about the project can be found in this [blog post](https://novemberfive.co/blog/opensourcing-kotlin-multiplatform-standard-github).
+
 Got any questions or ideas? We'd love to hear from you. Check out our [contributing guidelines](CONTRIBUTING.md) for ways to offer feedback and contribute.
 
 
