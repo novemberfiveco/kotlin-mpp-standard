@@ -86,7 +86,7 @@ pod spec lint library/ios/MY_LIBRARY.podspec
 
 *Note: This command will probably show a note to warn you about the fact that the framework file doesn't include a file for the i386 architecture. This architecture is only used for the 32-bit iOS simulator, all other architectures should work fine.*
 
-If everyting else looks ok, push your library to your private spec repository via:
+If everything else looks ok, push your library to your private spec repository via:
 
 ```
 pod repo push [repo] library/ios/MY_LIBRARY.podspec
