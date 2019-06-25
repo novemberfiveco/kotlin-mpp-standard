@@ -5,6 +5,9 @@ Kotlin multiplatform standard provides a standard setup for Kotlin multiplatform
 ![Promotional image](screenshots/header.png)
 
 
+## Currently outdated
+The current version still uses the old (outdated) gradle setup. But don't worry, we're working on a new version which uses the new setup ;) 
+
 
 ## What's included
 - Compile for Android / iOS / JVM
